@@ -1,27 +1,12 @@
-PEPTIDE TOXICITY DATASET - INFORMATION
-============================================================
+PEPTIDE DATASET INFORMATION
+================================================================================
 
-Total Sequences: 106
-Toxic Peptides: 53
-Non-Toxic Peptides: 53
-Class Balance: 1.00:1
+Total Peptides: 10000
+Toxic: 5000 (50.0%)
+Non-toxic: 5000 (50.0%)
 
-DATA SOURCES:
-------------------------------------------------------------
-• Toxic peptides: Literature-validated hemolytic sequences
-  - Bee venom melittin and variants
-  - Cytolytic antimicrobial peptides
-  - Known hemolytic sequences from ToxinPred
-
-• Non-toxic peptides: Therapeutic peptides
-  - FDA-approved therapeutic peptides
-  - Designed low-hemolysis AMPs
-  - Safe endogenous peptides
-
-VALIDATION:
-------------------------------------------------------------
-All sequences are from published research and validated databases:
-• ToxinPred 3.0 (IIIT Delhi)
-• HemoPI 2.0 (Hemolytic Peptide Database)
-• Antimicrobial Peptide Database (APD)
-• PubMed literature references
+Source Distribution:
+  UniProt_Toxic: 3283
+  Synthetic: 2538
+  Original: 499
+  UniProt_AMP: 3680

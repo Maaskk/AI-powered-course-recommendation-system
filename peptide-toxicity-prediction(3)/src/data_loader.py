@@ -84,17 +84,35 @@ def load_toxteller_fasta(filepath: str) -> Tuple[List[str], List[int]]:
     return sequences, labels
 
 
+def load_csv_sequences(csv_file: str) -> List[str]:
+    """Load sequences from CSV file (one sequence per line, no header)"""
+    sequences = []
+    if not os.path.exists(csv_file):
+        return sequences
+    
+    with open(csv_file, 'r') as f:
+        for line in f:
+            seq = line.strip().upper()
+            # Filter valid amino acids and minimum length
+            if seq and len(seq) >= 5 and all(aa in 'ACDEFGHIKLMNPQRSTVWY' for aa in seq):
+                sequences.append(seq)
+    
+    return sequences
+
+
 def load_datasets() -> Tuple[Dict, Dict, Dict]:
     """
-    Load peptide datasets from FASTA files.
+    Load peptide datasets from CSV or FASTA files.
     
-    First tries to load from HemoPI/ToxTeller structure, 
-    otherwise falls back to toxic_peptides.fasta and nontoxic_peptides.fasta
+    Priority order:
+    1. CSV files (train_pos.csv, train_neg.csv, test_pos.csv, test_neg.csv)
+    2. HemoPI/ToxTeller structure
+    3. toxic_peptides.fasta and nontoxic_peptides.fasta
     
     Returns:
         Tuple of (train_data, val_data, test_data)
     """
-    print("Loading datasets from FASTA files...")
+    print("Loading datasets...")
     
     base_path = "data/raw"
     
@@ -105,9 +123,42 @@ def load_datasets() -> Tuple[Dict, Dict, Dict]:
             f"Please run: python scripts/download_and_prepare_data.py"
         )
     
-    # Try to load from HemoPI structure first
-    hemopi_pos_path = f"{base_path}/HemoPI/positive.fasta"
-    if os.path.exists(hemopi_pos_path):
+    # PRIORITY 1: Try to load from CSV files first
+    csv_train_pos = f"{base_path}/train_pos.csv"
+    csv_train_neg = f"{base_path}/train_neg.csv"
+    csv_test_pos = f"{base_path}/test_pos.csv"
+    csv_test_neg = f"{base_path}/test_neg.csv"
+    
+    if all(os.path.exists(f) for f in [csv_train_pos, csv_train_neg, csv_test_pos, csv_test_neg]):
+        print("Loading from CSV files...")
+        from sklearn.model_selection import train_test_split
+        
+        # Load training data
+        train_pos = load_csv_sequences(csv_train_pos)
+        train_neg = load_csv_sequences(csv_train_neg)
+        
+        # Load test data
+        test_pos = load_csv_sequences(csv_test_pos)
+        test_neg = load_csv_sequences(csv_test_neg)
+        
+        # Combine training sequences
+        train_sequences = train_pos + train_neg
+        train_labels = [1] * len(train_pos) + [0] * len(train_neg)
+        
+        # Combine test sequences
+        test_sequences = test_pos + test_neg
+        test_labels = [1] * len(test_pos) + [0] * len(test_neg)
+        
+        # Split training into train/val (90/10 split)
+        train_sequences, val_sequences, train_labels, val_labels = train_test_split(
+            train_sequences, train_labels, test_size=0.1, random_state=42, stratify=train_labels
+        )
+        
+        source = 'CSV_files'
+    
+    # PRIORITY 2: Try to load from HemoPI structure
+    elif os.path.exists(f"{base_path}/HemoPI/positive.fasta"):
+        hemopi_pos_path = f"{base_path}/HemoPI/positive.fasta"
         print("Loading HemoPI training data...")
         hemopi_pos_train, labels_pos_train = load_hemopi_fasta(
             f"{base_path}/HemoPI/positive.fasta", label=1

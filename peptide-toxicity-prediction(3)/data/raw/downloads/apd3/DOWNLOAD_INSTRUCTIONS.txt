@@ -1,0 +1,18 @@
+
+    APD3 (Antimicrobial Peptide Database)
+    Website: https://aps.unmc.edu/
+    
+    To download data:
+    1. Go to https://aps.unmc.edu/download
+    2. Download "All AMP sequences" (FASTA format)
+    3. Download "AMP with activity data" (CSV format)
+    4. Save files to: data/raw/downloads/apd3/
+    
+    Files needed:
+    - APD_sequences.fasta (all sequences)
+    - APD_activity.csv (activity annotations including hemolytic activity)
+    
+    Labeling:
+    - Hemolytic activity present = toxic (label=1)
+    - No hemolytic activity = non-toxic (label=0)
+    

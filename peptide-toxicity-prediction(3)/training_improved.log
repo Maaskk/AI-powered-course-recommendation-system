@@ -1,0 +1,524 @@
+
+======================================================================
+                 PEPTIDE TOXICITY PREDICTION PIPELINE                 
+======================================================================
+
+Academic-Quality Machine Learning for Bioinformatics
+Predicting peptide toxicity from amino acid sequences
+
+[18:27:06] INFO: Random seed set to 42 for reproducibility
+
+======================================================================
+                         STEP 1: DATA LOADING                         
+======================================================================
+
+Loading datasets...
+Loading from CSV files...
+
+✓ Training set: 7924 samples
+  - Toxic: 3963 (50.0%)
+  - Non-toxic: 3961 (50.0%)
+
+✓ Validation set: 881 samples
+  - Toxic: 441 (50.1%)
+  - Non-toxic: 440 (49.9%)
+
+✓ Test set: 2203 samples
+  - Toxic: 1100 (49.9%)
+  - Non-toxic: 1103 (50.1%)
+
+Training Set Statistics:
+  Total samples: 7924
+  Toxic: 3963 (50.0%)
+  Non-toxic: 3961 (50.0%)
+  Length: 22.1 ± 7.8 AA
+  Range: [5, 35] AA
+
+Validation Set Statistics:
+  Total samples: 881
+  Toxic: 441 (50.1%)
+  Non-toxic: 440 (49.9%)
+  Length: 22.1 ± 8.2 AA
+  Range: [5, 35] AA
+
+Test Set Statistics:
+  Total samples: 2203
+  Toxic: 1100 (49.9%)
+  Non-toxic: 1103 (50.1%)
+  Length: 22.1 ± 7.9 AA
+  Range: [5, 35] AA
+
+[18:27:06] INFO: Loaded 7924 training samples
+
+======================================================================
+                      STEP 2: FEATURE EXTRACTION                      
+======================================================================
+
+Feature extraction configuration:
+  Amino acid composition: 20 features
+  Sequence length: 1 feature
+  Physicochemical properties: 6 features
+  Dipeptide composition: 400 features
+  Total features: 427
+
+Extracting features for 7924 sequences...
+Feature dimensionality: 427
+Feature extraction complete. Shape: (7924, 427)
+Extracting features for 881 sequences...
+Feature dimensionality: 427
+Feature extraction complete. Shape: (881, 427)
+Extracting features for 2203 sequences...
+Feature dimensionality: 427
+Feature extraction complete. Shape: (2203, 427)
+[18:27:15] INFO: Feature extraction complete: 427 features
+
+======================================================================
+                        STEP 3: MODEL TRAINING                        
+======================================================================
+
+
+======================================================================
+TRAINING MACHINE LEARNING MODELS
+======================================================================
+
+Standardizing features...
+Training set: 7924 samples
+Validation set: 881 samples
+Feature dimensionality: 427
+
+======================================================================
+Training: Logistic Regression
+======================================================================
+Hyperparameter search space: 5 combinations
+Fitting 5 folds for each of 5 candidates, totalling 25 fits
+
+✓ Best parameters: {'C': 10.0, 'penalty': 'l2', 'solver': 'lbfgs'}
+✓ Cross-validation F1: 0.8263 (+/- 0.0069)
+✓ Validation accuracy: 0.8241
+
+======================================================================
+Training: Random Forest
+======================================================================
+Hyperparameter search space: 108 combinations
+Fitting 5 folds for each of 108 candidates, totalling 540 fits
+
+✓ Best parameters: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
+✓ Cross-validation F1: 0.8700 (+/- 0.0073)
+✓ Validation accuracy: 0.8547
+
+======================================================================
+Training: SVM
+======================================================================
+Hyperparameter search space: 20 combinations
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
+
+✓ Best parameters: {'C': 10.0, 'gamma': 0.001, 'kernel': 'rbf'}
+✓ Cross-validation F1: 0.8707 (+/- 0.0058)
+✓ Validation accuracy: 0.8581
+
+======================================================================
+TRAINING COMPLETE
+======================================================================
+
+[21:39:55] INFO: Model training complete
+Models saved to results/trained_models.pkl
+[21:39:55] INFO: Models saved
+
+======================================================================
+                       STEP 4: MODEL EVALUATION                       
+======================================================================
+
+
+======================================================================
+Evaluating Logistic Regression
+======================================================================
+
+--- VALIDATION SET ---
+
+======================================================================
+EVALUATING: Logistic Regression
+======================================================================
+
+Classification Metrics:
+  Accuracy:  0.8241
+  Precision: 0.8357
+  Recall:    0.8073
+  F1-score:  0.8212
+  ROC-AUC:   0.8918
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+   Non-toxic     0.8132    0.8409    0.8268       440
+       Toxic     0.8357    0.8073    0.8212       441
+
+    accuracy                         0.8241       881
+   macro avg     0.8244    0.8241    0.8240       881
+weighted avg     0.8244    0.8241    0.8240       881
+
+Confusion Matrix:
+                 Predicted
+                 Non-toxic  Toxic
+Actual Non-toxic      370      70
+       Toxic           85     356
+
+--- TEST SET (INDEPENDENT) ---
+
+======================================================================
+EVALUATING: Logistic Regression
+======================================================================
+
+Classification Metrics:
+  Accuracy:  0.8320
+  Precision: 0.8424
+  Recall:    0.8164
+  F1-score:  0.8292
+  ROC-AUC:   0.9034
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+   Non-toxic     0.8223    0.8477    0.8348      1103
+       Toxic     0.8424    0.8164    0.8292      1100
+
+    accuracy                         0.8320      2203
+   macro avg     0.8324    0.8320    0.8320      2203
+weighted avg     0.8324    0.8320    0.8320      2203
+
+Confusion Matrix:
+                 Predicted
+                 Non-toxic  Toxic
+Actual Non-toxic      935     168
+       Toxic          202     898
+✓ Confusion matrix saved to results/Logistic_Regression_confusion_matrix.png
+✓ ROC curve saved to results/Logistic_Regression_roc_curve.png
+✓ Feature importance plot saved to results/Logistic_Regression_feature_importance.png
+
+Top 10 Most Important Features:
+   1. instability_index              4.635388
+   2. AAC_C                          2.351588
+   3. DPC_RR                         1.837421
+   4. AAC_M                          1.599658
+   5. DPC_CC                         1.286351
+   6. length                         1.093077
+   7. DPC_EE                         1.051770
+   8. molecular_weight               0.930469
+   9. DPC_SP                         0.875926
+  10. DPC_RW                         0.866064
+
+======================================================================
+Evaluating Random Forest
+======================================================================
+
+--- VALIDATION SET ---
+
+======================================================================
+EVALUATING: Random Forest
+======================================================================
+
+Classification Metrics:
+  Accuracy:  0.8547
+  Precision: 0.8826
+  Recall:    0.8186
+  F1-score:  0.8494
+  ROC-AUC:   0.9251
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+   Non-toxic     0.8305    0.8909    0.8596       440
+       Toxic     0.8826    0.8186    0.8494       441
+
+    accuracy                         0.8547       881
+   macro avg     0.8566    0.8548    0.8545       881
+weighted avg     0.8566    0.8547    0.8545       881
+
+Confusion Matrix:
+                 Predicted
+                 Non-toxic  Toxic
+Actual Non-toxic      392      48
+       Toxic           80     361
+
+--- TEST SET (INDEPENDENT) ---
+
+======================================================================
+EVALUATING: Random Forest
+======================================================================
+
+Classification Metrics:
+  Accuracy:  0.8947
+  Precision: 0.9125
+  Recall:    0.8727
+  F1-score:  0.8922
+  ROC-AUC:   0.9510
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+   Non-toxic     0.8784    0.9166    0.8971      1103
+       Toxic     0.9125    0.8727    0.8922      1100
+
+    accuracy                         0.8947      2203
+   macro avg     0.8955    0.8947    0.8946      2203
+weighted avg     0.8954    0.8947    0.8946      2203
+
+Confusion Matrix:
+                 Predicted
+                 Non-toxic  Toxic
+Actual Non-toxic     1011      92
+       Toxic          140     960
+✓ Confusion matrix saved to results/Random_Forest_confusion_matrix.png
+✓ ROC curve saved to results/Random_Forest_roc_curve.png
+✓ Feature importance plot saved to results/Random_Forest_feature_importance.png
+
+Top 10 Most Important Features:
+   1. DPC_CC                         0.083984
+   2. AAC_C                          0.081202
+   3. net_charge_pH7                 0.023690
+   4. DPC_CS                         0.019250
+   5. isoelectric_point              0.016349
+   6. AAC_K                          0.016328
+   7. DPC_GC                         0.015516
+   8. DPC_PC                         0.015090
+   9. gravy                          0.014321
+  10. AAC_L                          0.013635
+
+======================================================================
+Evaluating SVM
+======================================================================
+
+--- VALIDATION SET ---
+
+======================================================================
+EVALUATING: SVM
+======================================================================
+
+Classification Metrics:
+  Accuracy:  0.8581
+  Precision: 0.8641
+  Recall:    0.8503
+  F1-score:  0.8571
+  ROC-AUC:   0.9194
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+   Non-toxic     0.8523    0.8659    0.8591       440
+       Toxic     0.8641    0.8503    0.8571       441
+
+    accuracy                         0.8581       881
+   macro avg     0.8582    0.8581    0.8581       881
+weighted avg     0.8582    0.8581    0.8581       881
+
+Confusion Matrix:
+                 Predicted
+                 Non-toxic  Toxic
+Actual Non-toxic      381      59
+       Toxic           66     375
+
+--- TEST SET (INDEPENDENT) ---
+
+======================================================================
+EVALUATING: SVM
+======================================================================
+
+Classification Metrics:
+  Accuracy:  0.8888
+  Precision: 0.8947
+  Recall:    0.8809
+  F1-score:  0.8878
+  ROC-AUC:   0.9442
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+   Non-toxic     0.8830    0.8966    0.8898      1103
+       Toxic     0.8947    0.8809    0.8878      1100
+
+    accuracy                         0.8888      2203
+   macro avg     0.8889    0.8888    0.8888      2203
+weighted avg     0.8889    0.8888    0.8888      2203
+
+Confusion Matrix:
+                 Predicted
+                 Non-toxic  Toxic
+Actual Non-toxic      989     114
+       Toxic          131     969
+✓ Confusion matrix saved to results/SVM_confusion_matrix.png
+✓ ROC curve saved to results/SVM_roc_curve.png
+Feature importance not available for SVM
+✓ Model comparison saved to results/model_comparison_f1_score.png
+✓ Model comparison saved to results/model_comparison_roc_auc.png
+[21:40:24] INFO: Model evaluation complete
+
+======================================================================
+                  STEP 5: BIOLOGICAL INTERPRETATION                   
+======================================================================
+
+
+======================================================================
+BIOLOGICAL ANALYSIS: Amino Acid Distribution
+======================================================================
+
+Toxic peptides: 1100
+Non-toxic peptides: 1103
+
+Amino Acid Enrichment Analysis:
+AA    Toxic %      Non-toxic %     Difference   p-value    Significance
+----------------------------------------------------------------------
+A           6.14%          8.29%      -2.15%     0.0000   ***
+C          15.44%          1.86%      13.59%     0.0000   ***
+D           3.66%          4.67%      -1.01%     0.0000   ***
+E           3.56%          5.16%      -1.60%     0.0000   ***
+F           3.79%          4.61%      -0.82%     0.0003   ***
+G           8.42%          8.45%      -0.03%     0.9152   
+H           2.46%          1.94%       0.52%     0.0022   **
+I           4.88%          6.42%      -1.54%     0.0000   ***
+K           6.28%          6.09%       0.19%     0.5092   
+L           6.85%          9.90%      -3.04%     0.0000   ***
+M           1.41%          2.63%      -1.22%     0.0000   ***
+N           4.29%          3.86%       0.43%     0.0434   *
+P           6.97%          5.00%       1.97%     0.0000   ***
+Q           2.30%          3.16%      -0.86%     0.0000   ***
+R           4.85%          5.13%      -0.28%     0.3378   
+S           5.98%          6.47%      -0.49%     0.0444   *
+T           3.55%          5.29%      -1.74%     0.0000   ***
+V           4.45%          6.96%      -2.50%     0.0000   ***
+W           1.99%          1.12%       0.86%     0.0000   ***
+Y           2.73%          2.99%      -0.27%     0.1360   
+
+* p < 0.05, ** p < 0.01, *** p < 0.001
+
+Biological Interpretation:
+----------------------------------------------------------------------
+  • C (polar): enriched in toxic peptides
+    Difference: 13.59%, p=0.000000
+
+  • L (hydrophobic): depleted in toxic peptides
+    Difference: 3.04%, p=0.000000
+
+  • V (hydrophobic): depleted in toxic peptides
+    Difference: 2.50%, p=0.000000
+
+  • A (hydrophobic, small): depleted in toxic peptides
+    Difference: 2.15%, p=0.000000
+
+  • P (hydrophobic): enriched in toxic peptides
+    Difference: 1.97%, p=0.000000
+
+  • T (hydrophilic, small): depleted in toxic peptides
+    Difference: 1.74%, p=0.000000
+
+  • E (negative): depleted in toxic peptides
+    Difference: 1.60%, p=0.000000
+
+  • I (hydrophobic): depleted in toxic peptides
+    Difference: 1.54%, p=0.000000
+
+  • M (hydrophobic): depleted in toxic peptides
+    Difference: 1.22%, p=0.000000
+
+  • D (negative): depleted in toxic peptides
+    Difference: 1.01%, p=0.000004
+
+  • Q (hydrophilic): depleted in toxic peptides
+    Difference: 0.86%, p=0.000000
+
+  • W (hydrophobic, aromatic): enriched in toxic peptides
+    Difference: 0.86%, p=0.000000
+    → Aromatic residues enhance membrane insertion
+
+  • F (hydrophobic, aromatic): depleted in toxic peptides
+    Difference: 0.82%, p=0.000281
+
+  • H (positive): enriched in toxic peptides
+    Difference: 0.52%, p=0.002185
+
+  • S (hydrophilic, small): depleted in toxic peptides
+    Difference: 0.49%, p=0.044422
+
+  • N (hydrophilic): enriched in toxic peptides
+    Difference: 0.43%, p=0.043400
+
+✓ Amino acid composition comparison saved to results/aa_composition_comparison.png
+
+======================================================================
+BIOLOGICAL ANALYSIS: Physicochemical Properties
+======================================================================
+
+Length:
+  Toxic:     mean=21.817, std=8.030
+  Non-toxic: mean=22.399, std=7.819
+  p-value: 0.085270 
+
+Molecular Weight:
+  Toxic:     mean=2399.644, std=876.917
+  Non-toxic: mean=2485.198, std=888.976
+  p-value: 0.023131 *
+
+Net Charge Ph7:
+  Toxic:     mean=0.555, std=2.739
+  Non-toxic: mean=0.112, std=2.958
+  p-value: 0.000274 ***
+
+Isoelectric Point:
+  Toxic:     mean=7.325, std=2.282
+  Non-toxic: mean=7.111, std=2.447
+  p-value: 0.034062 *
+
+Aromaticity:
+  Toxic:     mean=0.085, std=0.075
+  Non-toxic: mean=0.087, std=0.071
+  p-value: 0.482420 
+
+Instability Index:
+  Toxic:     mean=45.599, std=35.899
+  Non-toxic: mean=35.503, std=34.438
+  p-value: 0.000000 ***
+
+Gravy:
+  Toxic:     mean=0.000, std=0.780
+  Non-toxic: mean=-0.040, std=0.937
+  p-value: 0.268453 
+
+✓ Physicochemical property distributions saved to results/physicochemical_distributions.png
+
+======================================================================
+BIOLOGICAL ANALYSIS: Sequence Length
+======================================================================
+
+Toxic peptides:
+  Mean length: 21.82 ± 8.03 AA
+  Range: 5 - 35 AA
+
+Non-toxic peptides:
+  Mean length: 22.40 ± 7.82 AA
+  Range: 5 - 35 AA
+
+Statistical difference: p = 0.085270
+✓ Length distribution saved to results/length_distribution.png
+[21:40:36] INFO: Biological analysis complete
+
+======================================================================
+                        STEP 6: SAVING RESULTS                        
+======================================================================
+
+✓ Results saved to results/evaluation_results.json
+
+======================================================================
+PIPELINE COMPLETE
+======================================================================
+
+Final Test Set Performance Summary:
+Model                     Accuracy     F1-Score     ROC-AUC     
+----------------------------------------------------------------------
+Logistic Regression       0.8320       0.8292       0.9034      
+Random Forest             0.8947       0.8922       0.9510      
+SVM                       0.8888       0.8878       0.9442      
+
+✓ All results saved to: results/
+✓ Visualizations: results/*.png
+✓ Metrics: results/evaluation_results.json
+✓ Trained models: results/trained_models.pkl
+✓ Log file: results/pipeline.log
+[21:40:36] INFO: Pipeline execution completed successfully

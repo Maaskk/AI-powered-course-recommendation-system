@@ -1,0 +1,14 @@
+
+    DRAMP (Data Repository of Antimicrobial Peptides)
+    Website: http://dramp.cpu-bioinfor.org/
+    
+    To download data:
+    1. Go to http://dramp.cpu-bioinfor.org/browse/DownloadDataPage.php
+    2. Download "General AMPs" (FASTA format)
+    3. Download "Hemolytic peptides" (FASTA format)
+    4. Save to: data/raw/downloads/dramp/
+    
+    Files needed:
+    - general_amps.fasta (non-toxic antimicrobial peptides)
+    - hemolytic_peptides.fasta (toxic peptides)
+    

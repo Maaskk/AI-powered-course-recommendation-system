@@ -61,9 +61,9 @@ def main():
     # =========================================================================
     print_section_header("STEP 2: FEATURE EXTRACTION")
     
-    # Initialize feature extractor (without dipeptide for speed)
-    # Set use_dipeptide=True for more comprehensive features (slower)
-    extractor = PeptideFeatureExtractor(use_dipeptide=False)
+    # Initialize feature extractor (WITH dipeptide for better accuracy)
+    # Dipeptide composition adds 400 features (427 total) for better performance
+    extractor = PeptideFeatureExtractor(use_dipeptide=True)
     
     print("Feature extraction configuration:")
     print(f"  Amino acid composition: 20 features")
