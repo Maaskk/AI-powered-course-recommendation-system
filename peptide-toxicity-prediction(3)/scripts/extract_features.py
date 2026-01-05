@@ -18,8 +18,8 @@ def main():
     
     sequence = args.sequence
     
-    # Extract features
-    extractor = PeptideFeatureExtractor(use_dipeptide=False)
+    # Extract features (must match training: use_dipeptide=True for 427 features)
+    extractor = PeptideFeatureExtractor(use_dipeptide=True)
     features = extractor.extract_features(sequence)
     properties = extractor.extract_physicochemical_properties(sequence)
     

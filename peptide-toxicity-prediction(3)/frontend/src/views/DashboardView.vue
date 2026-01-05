@@ -69,7 +69,7 @@ const router = useRouter()
 const stats = [
   {
     title: 'Prediction Accuracy',
-    value: '88.4%',
+    value: '89.5%',
     icon: TrendingUp,
     color: 'bg-blue-500'
   },

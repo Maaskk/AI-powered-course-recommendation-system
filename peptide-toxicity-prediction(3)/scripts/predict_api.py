@@ -29,8 +29,8 @@ def load_models():
 def predict_sequence(sequence, model_name, models):
     """Predict toxicity for a single sequence"""
     
-    # Extract features
-    extractor = PeptideFeatureExtractor(use_dipeptide=False)
+    # Extract features (must match training: use_dipeptide=True for 427 features)
+    extractor = PeptideFeatureExtractor(use_dipeptide=True)
     features = extractor.extract_features(sequence).reshape(1, -1)
     
     if models is None:
