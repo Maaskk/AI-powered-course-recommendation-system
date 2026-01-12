@@ -1,0 +1,474 @@
+{
+  "project": {
+    "key": "ARS",
+    "name": "Academic Recommendation System",
+    "description": "AI-powered recommendation system for university students using collaborative filtering and performance prediction",
+    "projectType": "software",
+    "lead": "project-admin"
+  },
+  "sprints": [
+    {
+      "id": 1,
+      "name": "Sprint 1 - Analysis & Design",
+      "goal": "Complete system analysis, create UML diagrams, design UI mockups, and define database schema",
+      "startDate": "2024-01-15",
+      "endDate": "2024-01-28",
+      "status": "closed",
+      "duration": "2 weeks"
+    },
+    {
+      "id": 2,
+      "name": "Sprint 2 - Data & ML Pipeline",
+      "goal": "Implement data cleaning, feature engineering, train ML models, and evaluate performance",
+      "startDate": "2024-01-29",
+      "endDate": "2024-02-11",
+      "status": "closed",
+      "duration": "2 weeks"
+    },
+    {
+      "id": 3,
+      "name": "Sprint 3 - Backend Development",
+      "goal": "Develop backend API with Python ML bridge, implement REST endpoints, and setup database",
+      "startDate": "2024-02-12",
+      "endDate": "2024-02-25",
+      "status": "closed",
+      "duration": "2 weeks"
+    },
+    {
+      "id": 4,
+      "name": "Sprint 4 - Frontend & Testing",
+      "goal": "Build frontend UI with visualizations, integrate with backend, test complete system, and create documentation",
+      "startDate": "2024-02-26",
+      "endDate": "2024-03-10",
+      "status": "active",
+      "duration": "2 weeks"
+    }
+  ],
+  "epics": [
+    {
+      "key": "ARS-E1",
+      "name": "System Architecture & Design",
+      "description": "Define system architecture, create design documents, UML diagrams, and UI mockups",
+      "status": "done",
+      "priority": "highest"
+    },
+    {
+      "key": "ARS-E2",
+      "name": "ML Pipeline Development",
+      "description": "Build complete ML pipeline with data cleaning, feature engineering, model training, and evaluation",
+      "status": "done",
+      "priority": "highest"
+    },
+    {
+      "key": "ARS-E3",
+      "name": "Backend API Development",
+      "description": "Create REST API with NestJS, implement Python bridge, setup database, and create endpoints",
+      "status": "done",
+      "priority": "highest"
+    },
+    {
+      "key": "ARS-E4",
+      "name": "Frontend Development",
+      "description": "Build Vue 3 frontend with data visualizations, student management, and analytics dashboard",
+      "status": "done",
+      "priority": "highest"
+    },
+    {
+      "key": "ARS-E5",
+      "name": "Testing & Documentation",
+      "description": "Test complete system, write user documentation, create deployment guide, and generate reports",
+      "status": "in progress",
+      "priority": "high"
+    }
+  ],
+  "userStories": [
+    {
+      "key": "ARS-1",
+      "epic": "ARS-E1",
+      "sprint": 1,
+      "summary": "US1 - Create Student Profile",
+      "description": "As an administrator, I want to create student profiles with demographic and academic information so that the system can generate personalized recommendations",
+      "acceptanceCriteria": [
+        "Can input student name, email, age, gender, major",
+        "Can input academic data: GPA, semester, attendance rate, study hours",
+        "Form validation for required fields and data ranges",
+        "Profile saved to database successfully",
+        "Confirmation message displayed after creation"
+      ],
+      "storyPoints": 5,
+      "priority": "highest",
+      "status": "done",
+      "assignee": "developer-1"
+    },
+    {
+      "key": "ARS-2",
+      "epic": "ARS-E2",
+      "sprint": 2,
+      "summary": "US2 - Get AI-Powered Recommendations",
+      "description": "As a student, I want to receive personalized course/topic recommendations based on my profile and preferences so that I can make informed academic decisions",
+      "acceptanceCriteria": [
+        "System generates recommendations using collaborative filtering",
+        "Recommendations consider student performance and demographics",
+        "Top 10 recommendations displayed with confidence scores",
+        "Recommendations stored in database with timestamp",
+        "Can view recommendation history"
+      ],
+      "storyPoints": 13,
+      "priority": "highest",
+      "status": "done",
+      "assignee": "developer-1"
+    },
+    {
+      "key": "ARS-3",
+      "epic": "ARS-E4",
+      "sprint": 3,
+      "summary": "US3 - Manage Academic Data",
+      "description": "As an administrator, I want to view, update, and delete student academic data so that I can maintain accurate records",
+      "acceptanceCriteria": [
+        "Can view list of all students with key information",
+        "Can search and filter students",
+        "Can update student information",
+        "Can delete student records",
+        "Changes reflected immediately in UI"
+      ],
+      "storyPoints": 8,
+      "priority": "medium",
+      "status": "done",
+      "assignee": "developer-2"
+    },
+    {
+      "key": "ARS-4",
+      "epic": "ARS-E4",
+      "sprint": 4,
+      "summary": "US4 - Visualize Results",
+      "description": "As an administrator, I want to see visual representations of recommendation data and student distributions so that I can understand system performance and trends",
+      "acceptanceCriteria": [
+        "Dashboard displays key metrics: total students, recommendations, avg scores",
+        "Line chart shows recommendation trends over time",
+        "Bar charts show student distribution by GPA and gender",
+        "Table displays top recommended items with popularity metrics",
+        "All visualizations update in real-time"
+      ],
+      "storyPoints": 8,
+      "priority": "medium",
+      "status": "done",
+      "assignee": "developer-2"
+    },
+    {
+      "key": "ARS-5",
+      "epic": "ARS-E2",
+      "sprint": 2,
+      "summary": "US5 - Evaluate ML Model Performance",
+      "description": "As a data scientist, I want to evaluate the ML model performance using standard metrics so that I can assess recommendation quality",
+      "acceptanceCriteria": [
+        "Training pipeline generates evaluation metrics",
+        "Metrics include: precision, recall, F1-score, NDCG",
+        "Feature importance analysis available",
+        "Model performance saved to results folder",
+        "Evaluation report generated automatically"
+      ],
+      "storyPoints": 8,
+      "priority": "highest",
+      "status": "done",
+      "assignee": "data-scientist-1"
+    }
+  ],
+  "tasks": [
+    {
+      "key": "ARS-10",
+      "parent": "ARS-1",
+      "sprint": 1,
+      "summary": "Design database schema for students table",
+      "description": "Create entity relationship diagram and SQL schema for students table with all required fields",
+      "estimateHours": 4,
+      "status": "done"
+    },
+    {
+      "key": "ARS-11",
+      "parent": "ARS-1",
+      "sprint": 1,
+      "summary": "Create UML class diagram for Student entity",
+      "description": "Design Student class with attributes and methods",
+      "estimateHours": 3,
+      "status": "done"
+    },
+    {
+      "key": "ARS-12",
+      "parent": "ARS-1",
+      "sprint": 1,
+      "summary": "Design UI mockup for student profile form",
+      "description": "Create wireframe and high-fidelity mockup for student creation form",
+      "estimateHours": 5,
+      "status": "done"
+    },
+    {
+      "key": "ARS-20",
+      "parent": "ARS-2",
+      "sprint": 2,
+      "summary": "Implement data cleaning pipeline",
+      "description": "Create Python script to clean all datasets: ITM-Rec, Student Performance, Knowledge Tracing",
+      "estimateHours": 12,
+      "status": "done"
+    },
+    {
+      "key": "ARS-21",
+      "parent": "ARS-2",
+      "sprint": 2,
+      "summary": "Develop feature engineering module",
+      "description": "Create derived features, encode categoricals, normalize numerical features",
+      "estimateHours": 10,
+      "status": "done"
+    },
+    {
+      "key": "ARS-22",
+      "parent": "ARS-2",
+      "sprint": 2,
+      "summary": "Train collaborative filtering model",
+      "description": "Implement item-based CF with cosine similarity, train on ITM-Rec dataset",
+      "estimateHours": 10,
+      "status": "done"
+    },
+    {
+      "key": "ARS-23",
+      "parent": "ARS-2",
+      "sprint": 2,
+      "summary": "Train performance prediction model",
+      "description": "Implement Random Forest classifier for student performance prediction",
+      "estimateHours": 8,
+      "status": "done"
+    },
+    {
+      "key": "ARS-24",
+      "parent": "ARS-5",
+      "sprint": 2,
+      "summary": "Create model evaluation script",
+      "description": "Calculate precision, recall, F1, NDCG, and generate evaluation report",
+      "estimateHours": 6,
+      "status": "done"
+    },
+    {
+      "key": "ARS-30",
+      "parent": "ARS-2",
+      "sprint": 3,
+      "summary": "Setup NestJS project structure",
+      "description": "Initialize NestJS project, configure TypeScript, setup modules",
+      "estimateHours": 4,
+      "status": "done"
+    },
+    {
+      "key": "ARS-31",
+      "parent": "ARS-3",
+      "sprint": 3,
+      "summary": "Create Student entity and repository",
+      "description": "Define TypeORM entity for students with all fields",
+      "estimateHours": 3,
+      "status": "done"
+    },
+    {
+      "key": "ARS-32",
+      "parent": "ARS-3",
+      "sprint": 3,
+      "summary": "Implement Students CRUD endpoints",
+      "description": "Create REST endpoints: POST, GET, PATCH, DELETE for students",
+      "estimateHours": 6,
+      "status": "done"
+    },
+    {
+      "key": "ARS-33",
+      "parent": "ARS-2",
+      "sprint": 3,
+      "summary": "Create Flask API for ML predictions",
+      "description": "Build Flask API that loads models and serves predictions",
+      "estimateHours": 8,
+      "status": "done"
+    },
+    {
+      "key": "ARS-34",
+      "parent": "ARS-2",
+      "sprint": 3,
+      "summary": "Implement Python bridge in NestJS",
+      "description": "Create ML service that communicates with Flask API via HTTP",
+      "estimateHours": 6,
+      "status": "done"
+    },
+    {
+      "key": "ARS-35",
+      "parent": "ARS-2",
+      "sprint": 3,
+      "summary": "Create Recommendations endpoints",
+      "description": "Build endpoints for generating and retrieving recommendations",
+      "estimateHours": 8,
+      "status": "done"
+    },
+    {
+      "key": "ARS-36",
+      "parent": "ARS-4",
+      "sprint": 3,
+      "summary": "Implement Analytics endpoints",
+      "description": "Create endpoints for overview stats, trends, and distributions",
+      "estimateHours": 8,
+      "status": "done"
+    },
+    {
+      "key": "ARS-40",
+      "parent": "ARS-4",
+      "sprint": 4,
+      "summary": "Setup Vue 3 project with TypeScript",
+      "description": "Initialize Vue 3 + Vite + TypeScript, configure routing and state management",
+      "estimateHours": 4,
+      "status": "done"
+    },
+    {
+      "key": "ARS-41",
+      "parent": "ARS-4",
+      "sprint": 4,
+      "summary": "Create API client services",
+      "description": "Build axios-based API client for all backend endpoints",
+      "estimateHours": 4,
+      "status": "done"
+    },
+    {
+      "key": "ARS-42",
+      "parent": "ARS-4",
+      "sprint": 4,
+      "summary": "Build Dashboard view with charts",
+      "description": "Create dashboard with stats cards, line chart for trends, and tables",
+      "estimateHours": 10,
+      "status": "done"
+    },
+    {
+      "key": "ARS-43",
+      "parent": "ARS-3",
+      "sprint": 4,
+      "summary": "Build Students management view",
+      "description": "Create student list, add/edit forms, and recommendation generation UI",
+      "estimateHours": 10,
+      "status": "done"
+    },
+    {
+      "key": "ARS-44",
+      "parent": "ARS-4",
+      "sprint": 4,
+      "summary": "Build Analytics view",
+      "description": "Create analytics page with distribution charts and item popularity table",
+      "estimateHours": 8,
+      "status": "done"
+    },
+    {
+      "key": "ARS-45",
+      "parent": "ARS-4",
+      "sprint": 4,
+      "summary": "Implement dark theme design system",
+      "description": "Create professional dark theme with design tokens and TailwindCSS v4",
+      "estimateHours": 6,
+      "status": "done"
+    },
+    {
+      "key": "ARS-50",
+      "parent": "ARS-E5",
+      "sprint": 4,
+      "summary": "Write comprehensive README documentation",
+      "description": "Document installation, setup, usage, and API endpoints",
+      "estimateHours": 4,
+      "status": "done"
+    },
+    {
+      "key": "ARS-51",
+      "parent": "ARS-E5",
+      "sprint": 4,
+      "summary": "Create project structure documentation",
+      "description": "Document folder structure, architecture, and data flow",
+      "estimateHours": 3,
+      "status": "done"
+    },
+    {
+      "key": "ARS-52",
+      "parent": "ARS-E5",
+      "sprint": 4,
+      "summary": "Write ML approach documentation",
+      "description": "Document algorithms used, data cleaning pipeline, and evaluation metrics",
+      "estimateHours": 4,
+      "status": "done"
+    },
+    {
+      "key": "ARS-53",
+      "parent": "ARS-E5",
+      "sprint": 4,
+      "summary": "Generate JIRA export file",
+      "description": "Create JSON export with all sprints, epics, user stories, and tasks",
+      "estimateHours": 2,
+      "status": "done"
+    },
+    {
+      "key": "ARS-54",
+      "parent": "ARS-E5",
+      "sprint": 4,
+      "summary": "Test complete system end-to-end",
+      "description": "Verify data flow from frontend through backend to ML models and back",
+      "estimateHours": 8,
+      "status": "in progress"
+    },
+    {
+      "key": "ARS-55",
+      "parent": "ARS-E5",
+      "sprint": 4,
+      "summary": "Create deployment guide",
+      "description": "Write step-by-step guide for deploying on local machine",
+      "estimateHours": 3,
+      "status": "in progress"
+    }
+  ],
+  "backlog": [
+    {
+      "key": "ARS-60",
+      "type": "improvement",
+      "summary": "Add authentication and authorization",
+      "description": "Implement JWT-based authentication for securing endpoints",
+      "priority": "medium",
+      "status": "backlog"
+    },
+    {
+      "key": "ARS-61",
+      "type": "improvement",
+      "summary": "Implement real-time notifications",
+      "description": "Add WebSocket support for real-time recommendation updates",
+      "priority": "low",
+      "status": "backlog"
+    },
+    {
+      "key": "ARS-62",
+      "type": "improvement",
+      "summary": "Add model versioning",
+      "description": "Implement model versioning system to track different model versions",
+      "priority": "medium",
+      "status": "backlog"
+    },
+    {
+      "key": "ARS-63",
+      "type": "improvement",
+      "summary": "Implement A/B testing framework",
+      "description": "Add A/B testing capability to compare different recommendation algorithms",
+      "priority": "low",
+      "status": "backlog"
+    },
+    {
+      "key": "ARS-64",
+      "type": "improvement",
+      "summary": "Add export functionality",
+      "description": "Allow exporting recommendations and analytics data to CSV/PDF",
+      "priority": "low",
+      "status": "backlog"
+    }
+  ],
+  "metadata": {
+    "exportDate": "2024-03-10",
+    "version": "1.0",
+    "totalStoryPoints": 42,
+    "completedStoryPoints": 42,
+    "totalTasks": 26,
+    "completedTasks": 24,
+    "projectDuration": "8 weeks",
+    "teamSize": 3,
+    "methodology": "Scrum"
+  }
+}
